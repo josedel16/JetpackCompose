@@ -6,12 +6,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class CharactersRepository {
-    private val avatarService = CharactersService.getInstance()
+    private val charactersService = CharactersService.getInstance()
 
     suspend fun getCharacters(): List<Character> {
         return withContext(Dispatchers.IO) {
             try {
-                avatarService.getCharacters()
+                charactersService.getCharacters()
             } catch (e: Exception) {
                 e.printStackTrace()
                 listOf()

@@ -4,9 +4,9 @@ import com.example.jetpackcompose.data.CharactersRepository
 import com.example.jetpackcompose.data.models.Character
 
 class GetCharactersUseCase {
-    private val avatarRepository = CharactersRepository()
+    private val charactersRepository = CharactersRepository()
 
     suspend operator fun invoke(): List<Character> {
-        return avatarRepository.getCharacters()
+        return charactersRepository.getCharacters()
     }
 }
