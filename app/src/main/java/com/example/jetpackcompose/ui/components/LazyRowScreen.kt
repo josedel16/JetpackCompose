@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jetpackcompose.R
-import com.example.jetpackcompose.data.SuperHero
+import com.example.jetpackcompose.data.models.SuperHero
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

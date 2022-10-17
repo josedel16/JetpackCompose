@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
@@ -23,11 +22,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcompose.R
+import com.example.jetpackcompose.ui.characters.CharactersScreen
 import com.example.jetpackcompose.ui.components.*
-import com.example.jetpackcompose.ui.theme.JetpackComposeTheme
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Composable
 fun MainScreen() {
@@ -78,6 +75,9 @@ fun MainScreen() {
             }
             composable(DrawerScreens.Components.route) {
                 OthersComponents()
+            }
+            composable(DrawerScreens.AvatarCharacters.route) {
+                CharactersScreen()
             }
         }
     }
@@ -138,6 +138,7 @@ sealed class DrawerScreens(val title: String, val route: String) {
     object Components : DrawerScreens("Components", "others_components")
     object LazyColumn : DrawerScreens("LazyColumn", "lazy_column")
     object LazyRow : DrawerScreens("LazyRow/LazyVerticalGrid", "lazy_row")
+    object AvatarCharacters : DrawerScreens("Avatar characters", "avatar_characters")
 }
 
 private val screens = listOf(
@@ -146,7 +147,8 @@ private val screens = listOf(
     DrawerScreens.Column,
     DrawerScreens.Components,
     DrawerScreens.LazyColumn,
-    DrawerScreens.LazyRow
+    DrawerScreens.LazyRow,
+    DrawerScreens.AvatarCharacters
 )
 
 private fun getNameByRoute(route: String?): String {

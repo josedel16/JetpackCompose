@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.jetpackcompose.data.Country
+import com.example.jetpackcompose.data.models.Country
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
