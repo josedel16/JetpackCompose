@@ -1,5 +1,6 @@
 package com.example.jetpackcompose.ui.main
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -57,6 +58,11 @@ fun MainScreen() {
             }
         }, currentRoute?.route)
     }) {
+        BackHandler(enabled = scaffoldState.drawerState.isOpen, onBack = {
+            coroutineScope.launch {
+                scaffoldState.drawerState.close()
+            }
+        })
         NavHost(navController = navController, startDestination = DrawerScreens.Box.route) {
             composable(DrawerScreens.Box.route) {
                 BoxScreen()
@@ -122,8 +128,8 @@ fun Drawer(
             Text(
                 text = it.title, modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp)
-                    .clickable { onDestinationClicked(it.route) },
+                    .clickable { onDestinationClicked(it.route) }
+                    .padding(8.dp),
                 color = if (currentRoute == it.route) Color.Blue else Color.Black
             )
             Divider(modifier = Modifier.fillMaxWidth())

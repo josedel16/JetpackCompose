@@ -1,6 +1,5 @@
 package com.example.jetpackcompose.ui.components
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -29,13 +27,19 @@ fun OthersComponents() {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
+        var showDialog by remember {
+            mutableStateOf(false)
+        }
         TextComponent()
         TextFieldComponent()
-        ButtonComponent()
+        ButtonComponent(onShowDialogClicked = { showDialog = true })
         SwitchComponent()
         CheckBoxComponent()
         RadioButtonComponent()
         ProgressBarComponent()
+        if (showDialog) {
+            DialogComponent(onCloseDialog = { showDialog = false })
+        }
     }
 }
 
@@ -67,15 +71,9 @@ fun TextFieldComponent() {
 }
 
 @Composable
-fun ButtonComponent() {
-    val context = LocalContext.current
-
-    Button(onClick = {
-        Toast
-            .makeText(context, "Hello world", Toast.LENGTH_SHORT)
-            .show()
-    }, modifier = Modifier.padding(top = 16.dp)) {
-        Text(text = "Show toast")
+fun ButtonComponent(onShowDialogClicked: () -> Unit) {
+    Button(onClick = { onShowDialogClicked() }, modifier = Modifier.padding(top = 16.dp)) {
+        Text(text = "Show dialog")
     }
 }
 
@@ -122,6 +120,24 @@ fun RadioButtonComponent() {
 fun ProgressBarComponent() {
     CircularProgressIndicator(modifier = Modifier.padding(top = 16.dp))
     LinearProgressIndicator(modifier = Modifier.padding(top = 16.dp))
+}
+
+@Composable
+fun DialogComponent(onCloseDialog: () -> Unit) {
+    AlertDialog(onDismissRequest = { onCloseDialog() },
+        title = { Text(text = "Dialog header") },
+        text = { Text(text = "Dialog body text") },
+        confirmButton = {
+            TextButton(onClick = { onCloseDialog() }) {
+                Text(text = "Accept")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = { onCloseDialog() }) {
+                Text(text = "Cancel")
+            }
+        }
+    )
 }
 
 @Preview(showBackground = true)
